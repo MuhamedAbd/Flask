@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+buildCommand = "pip install -r requirements.txt"
+
+[deploy]
+startCommand = "gunicorn --bind 0.0.0.0:$PORT app:app"
+healthcheckPath = "/test"
+healthcheckTimeout = 100
+restartPolicy = "always"
+
+[phases.setup]
+nixPkgs = ["python311", "gcc"] 
