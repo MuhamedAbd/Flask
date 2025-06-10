@@ -1,17 +1,17 @@
 services:
   - type: web
-    name: sleep-quality-predictor
+    name: lung-life
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.0
+        value: 3.11.8
       - key: ENVIRONMENT
         value: production
-      - key: PORT
-        value: 10000
       - key: MODEL_PATH
         value: sleep_model.joblib
+      - key: DATASET_PATH
+        value: Sleep_health_and_lifestyle_dataset.csv
     healthCheckPath: /test
     autoDeploy: true 
