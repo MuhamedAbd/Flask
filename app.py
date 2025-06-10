@@ -11,18 +11,25 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
+# Define paths using environment variables with fallbacks
+DATASET_PATH = os.getenv('DATASET_PATH', 'Sleep_health_and_lifestyle_dataset.csv')  # Changed to relative path
+MODEL_PATH = os.getenv('MODEL_PATH', 'sleep_model.joblib')
+PORT = int(os.getenv('PORT', 5000))
+HOST = os.getenv('HOST', '0.0.0.0')  # Added HOST environment variable
+
+# Configure logging for production
+if os.getenv('ENVIRONMENT') == 'production':
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+else:
+    logging.basicConfig(level=logging.INFO)
+
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
-
-# Define paths using environment variables with fallbacks
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATASET_PATH = os.getenv('DATASET_PATH', os.path.join(BASE_DIR, 'Sleep_health_and_lifestyle_dataset.csv'))
-MODEL_PATH = os.getenv('MODEL_PATH', os.path.join(BASE_DIR, 'sleep_model.joblib'))
-PORT = int(os.getenv('PORT', 5000))
 
 # Load or train the model
 try:
@@ -284,8 +291,5 @@ def generate_advice(prediction, inputs):
     return advice
 
 if __name__ == '__main__':
-    logger.info("Starting Flask server...")
-    # Use environment variable for host in production
-    host = '0.0.0.0' if os.getenv('ENVIRONMENT') == 'production' else 'localhost'
-    debug = os.getenv('ENVIRONMENT') != 'production'
-    app.run(host=host, port=PORT, debug=debug) 
+    logger.info(f"Starting server on {HOST}:{PORT}")
+    app.run(host=HOST, port=PORT) 

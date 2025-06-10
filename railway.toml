@@ -6,7 +6,8 @@ buildCommand = "pip install -r requirements.txt"
 startCommand = "gunicorn --bind 0.0.0.0:$PORT app:app"
 healthcheckPath = "/test"
 healthcheckTimeout = 100
-restartPolicyType = "always"
+restartPolicyType = "on-failure"
+restartPolicyMaxRetries = 10
 
 [phases.setup]
 nixPkgs = ["python311", "gcc"] 
