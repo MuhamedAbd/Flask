@@ -1,0 +1,2 @@
+C:/New folder/lung-life/android/app/.cxx/RelWithDebInfo/385s6e2w/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/New folder/lung-life/android/app/.cxx/RelWithDebInfo/385s6e2w/arm64-v8a/CMakeFiles/rebuild_cache.dir

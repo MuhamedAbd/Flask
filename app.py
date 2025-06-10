@@ -19,8 +19,9 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Define paths using environment variables with fallbacks
-DATASET_PATH = os.getenv('DATASET_PATH', r"C:\New folder\Sleep_health_and_lifestyle_dataset.csv")
-MODEL_PATH = os.getenv('MODEL_PATH', 'sleep_model.joblib')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATASET_PATH = os.getenv('DATASET_PATH', os.path.join(BASE_DIR, 'Sleep_health_and_lifestyle_dataset.csv'))
+MODEL_PATH = os.getenv('MODEL_PATH', os.path.join(BASE_DIR, 'sleep_model.joblib'))
 PORT = int(os.getenv('PORT', 5000))
 
 # Load or train the model

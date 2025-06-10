@@ -1,0 +1,2 @@
+D:/Work/lung-life/android/app/.cxx/Debug/1p295f3l/x86/CMakeFiles/edit_cache.dir
+D:/Work/lung-life/android/app/.cxx/Debug/1p295f3l/x86/CMakeFiles/rebuild_cache.dir

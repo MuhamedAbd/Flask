@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "861104631232",
+    "project_id": "lung-life",
+    "storage_bucket": "lung-life.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861104631232:android:0064292f8d989041cbac25",
+        "android_client_info": {
+          "package_name": "com.example.lung_life"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJLBOfNXFWgvm9Fq7anBGz5rr7o7NCW5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
