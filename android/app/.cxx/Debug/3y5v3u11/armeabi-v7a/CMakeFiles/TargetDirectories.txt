@@ -1,0 +1,2 @@
+D:/New folder/lung-life/android/app/.cxx/Debug/3y5v3u11/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/New folder/lung-life/android/app/.cxx/Debug/3y5v3u11/armeabi-v7a/CMakeFiles/rebuild_cache.dir
