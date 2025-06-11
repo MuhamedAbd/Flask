@@ -5,6 +5,7 @@ import 'comms/chat_comms.dart';
 import 'exercise/ExercisePage.dart';
 import 'nutrition/NutritionScreen.dart';
 import 'advices/advices_screen.dart';
+import 'control_panel/ControlPanelScreen.dart';
 
 class WellnessHomePage extends StatefulWidget {
   @override
@@ -80,9 +81,12 @@ class _WellnessHomePageState extends State<WellnessHomePage> {
                     ],
                   ),
                   IconButton(
-                    icon: Icon(Icons.logout, color: Colors.white),
+                    icon: Icon(Icons.person, color: Colors.white),
                     onPressed: () {
-                      userProvider.logout(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ControlPanelScreen()),
+                      );
                     },
                   ),
                 ],

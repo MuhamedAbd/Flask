@@ -16,6 +16,10 @@ class ChatProvider extends ChangeNotifier {
     await controller.sendMessage(notifyListeners);
   }
 
+  Future<void> sendInitialMessage(String message) async {
+    await controller.sendInitialMessage(message, notifyListeners);
+  }
+
   @override
   void dispose() {
     controller.dispose();

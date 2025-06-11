@@ -6,6 +6,7 @@ class SignUpController {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final AuthService authService = AuthService();
+  bool isDoctor = false;
 
   Future<bool> signUp() async {
     String email = emailController.text.trim();
@@ -16,7 +17,7 @@ class SignUpController {
       return false;
     }
     
-    var user = await authService.registerWithEmailAndPassword(email, password, username);
+    var user = await authService.registerWithEmailAndPassword(email, password, username, isDoctor);
     return user != null;
   }
 

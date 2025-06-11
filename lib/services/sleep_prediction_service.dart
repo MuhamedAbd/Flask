@@ -5,7 +5,7 @@ import '../models/sleep_prediction_request.dart';
 
 class SleepPredictionService {
   // Use your computer's IP address here
-  static const String baseUrl = 'http://192.168.1.7:5000';
+  static const String baseUrl = 'https://web-production-cc08.up.railway.app';
 
   Future<bool> testConnection() async {
     try {

@@ -89,6 +89,34 @@ class SignUpPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: 15),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'I am a doctor',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Switch(
+                                value: provider.controller.isDoctor,
+                                onChanged: (bool value) {
+                                  provider.controller.isDoctor = value;
+                                  provider.notifyListeners();
+                                },
+                                activeColor: Color(0xFF5B2D50),
+                              ),
+                            ],
+                          ),
+                        ),
                         SizedBox(height: 20),
                         provider.isLoading
                             ? CircularProgressIndicator()

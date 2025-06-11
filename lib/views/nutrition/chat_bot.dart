@@ -3,17 +3,33 @@ import 'package:provider/provider.dart';
 import '../../providers/nutrition/chat_provider.dart';
 
 class ChatScreen extends StatefulWidget {
+  final String? initialMessage;
+
+  const ChatScreen({Key? key, this.initialMessage}) : super(key: key);
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
+  late ChatProvider _chatProvider; // Declare ChatProvider here
 
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<ChatProvider>(context, listen: false).initializeSession());
+    _chatProvider = ChatProvider(); // Initialize ChatProvider
+
+    // Listen for changes to scroll to bottom
+    _chatProvider.addListener(_scrollToBottom);
+
+    Future.microtask(() {
+      if (widget.initialMessage != null) {
+        _chatProvider.sendInitialMessage(widget.initialMessage!); // Use the local provider
+      } else {
+        _chatProvider.initializeSession(); // Use the local provider
+      }
+    });
   }
 
   void _scrollToBottom() {
@@ -28,11 +44,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ChatProvider(),
+    return ChangeNotifierProvider<ChatProvider>.value( // Use .value to provide the existing instance
+      value: _chatProvider,
       child: Consumer<ChatProvider>(
         builder: (context, provider, child) {
-          WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+          // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom()); // Moved to provider listener
           
           return Scaffold(
             appBar: AppBar(
@@ -109,6 +125,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
+    _chatProvider.removeListener(_scrollToBottom); // Remove listener
+    _chatProvider.dispose(); // Dispose the provider
     _scrollController.dispose();
     super.dispose();
   }

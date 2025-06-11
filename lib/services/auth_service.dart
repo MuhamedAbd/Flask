@@ -20,7 +20,7 @@ class AuthService {
   }
 
   // دالة للتسجيل باستخدام البريد الإلكتروني وكلمة المرور
-  Future<User?> registerWithEmailAndPassword(String email, String password, String username) async {
+  Future<User?> registerWithEmailAndPassword(String email, String password, String username, bool isDoctor) async {
     try {
       // Create the user account
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
@@ -33,6 +33,7 @@ class AuthService {
         await _firestore.collection('users').doc(userCredential.user!.uid).set({
           'username': username,
           'email': email,
+          'isDoctor': isDoctor,
           'createdAt': FieldValue.serverTimestamp(),
         });
       }
@@ -55,8 +56,43 @@ class AuthService {
     return user != null;  // إذا كان هناك مستخدم مسجل دخول
   }
 
+  // Getter for current user
+  User? get currentUser => _auth.currentUser;
+
   // دالة للاستماع لتغيرات حالة المستخدم
   Stream<User?> get user {
     return _auth.authStateChanges();  // تدفق التغيرات في حالة المستخدم
+  }
+
+  // Function to update username in Firestore
+  Future<bool> updateUsername(String newUsername) async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await _firestore.collection('users').doc(user.uid).update({
+          'username': newUsername,
+        });
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print('Error updating username: $e');
+      return false;
+    }
+  }
+
+  // Function to update password
+  Future<bool> updatePassword(String newPassword) async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await user.updatePassword(newPassword);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print('Error updating password: $e');
+      return false;
+    }
   }
 }
